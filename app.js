@@ -2,9 +2,12 @@ const taskInput = document.getElementById('taskInput');
 const addBtn = document.getElementById('addBtn');
 const taskList = document.getElementById('taskList');
 const themeBtn = document.getElementById('modeBtn');
+const searchInput = document.getElementById('searchInput');
 
 let tasks = JSON.parse(localStorage.getItem('bossTasks')) || [];
+let searchQuery = "";
 
+// لنک کو نیلا بنانے والا جادو
 function makeLink(text) {
   const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|[a-z0-9-]+\.(com|net|org|pk|io|co|app)(\/[^\s]*)?)/gi;
   return text.replace(urlRegex, (url) => {
@@ -23,16 +26,19 @@ function save() {
 function render() {
   taskList.innerHTML = '';
   tasks.forEach((task, index) => {
-    const li = document.createElement('li');
-    li.style.cssText = "display:flex; justify-content:space-between; margin-top:8px; background:#f2f2f2; padding:8px; border-radius:6px;";
-    li.innerHTML = `
-      <span>${makeLink(task.text)}</span>
-      <div>
-        <button onclick="editTask(${index})">✏️</button>
-        <button onclick="deleteTask(${index})">❌</button>
-      </div>
-    `;
-    taskList.appendChild(li);
+    // سرچ والا فلٹر
+    if (task.text.toLowerCase().includes(searchQuery.toLowerCase())) {
+      const li = document.createElement('li');
+      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-top:8px; background:#f2f2f2; padding:10px; border-radius:8px;";
+      li.innerHTML = `
+        <span style="word-break:break-all;">${makeLink(task.text)}</span>
+        <div style="display:flex; gap:5px;">
+          <button onclick="editTask(${index})" style="cursor:pointer;">✏️</button>
+          <button onclick="deleteTask(${index})" style="cursor:pointer;">❌</button>
+        </div>
+      `;
+      taskList.appendChild(li);
+    }
   });
 }
 
@@ -60,9 +66,16 @@ function editTask(i) {
   }
 }
 
+// بٹنوں کے ایونٹ
 addBtn.addEventListener('click', addTask);
+
 taskInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') addTask();
+});
+
+searchInput.addEventListener('input', (e) => {
+  searchQuery = e.target.value;
+  render();
 });
 
 themeBtn.addEventListener('click', () => {
