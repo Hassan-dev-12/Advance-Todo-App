@@ -1,27 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boss Todo App</title>
+    <title>Boss Todo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Boss Todo App 🔥</h1>
-        <div id="counter">0 کام باقی ہیں باس</div>
-        
         <div class="input-box">
             <input type="text" id="taskInput" placeholder="نیا ٹاسک لکھو باس...">
             <button id="addBtn">Add</button>
         </div>
-
-        <div class="filter-box">
-            <button onclick="filterTasks('all', event)" class="filter active">All</button>
-            <button onclick="filterTasks('pending', event)" class="filter">Pending</button>
-            <button onclick="filterTasks('done', event)" class="filter">Done</button>
-        </div>
-
         <ul id="taskList"></ul>
         <button id="modeBtn">Dark / Light</button>
     </div>
