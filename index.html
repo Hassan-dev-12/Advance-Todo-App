@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boss Advance Todo</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Pro Todo App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-<h1>Boss Todo App 🔥</h1>
-<div class="input-box">
-<input type="text" id="todoInput" placeholder="Naya task likho boss...">
-<button onclick="addTodo()">Add</button>
-</div>
-<ul id="todoList"></ul>
-<button class="mode-btn" onclick="toggleMode()">Dark / Light</button>
-</div>
-<script src="app.js"></script>
+    <div class="container">
+        <h1>Boss Todo App 🔥</h1>
+        <div id="counter">0 Kaam Baqi Hain Boss</div>
+        <div class="input-box">
+            <input type="text" id="taskInput" placeholder="Naya task likho boss...">
+            <button id="addBtn">Add</button>
+        </div>
+        <div class="filter-box">
+            <button onclick="filterTasks('all')" class="filter active">All</button>
+            <button onclick="filterTasks('pending')" class="filter">Pending</button>
+            <button onclick="filterTasks('done')" class="filter">Done</button>
+        </div>
+        <ul id="taskList"></ul>
+        <button id="modeBtn">Dark / Light</button>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
