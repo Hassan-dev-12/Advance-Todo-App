@@ -4,10 +4,10 @@ let currentFilter = "all";
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
 const counter = document.getElementById("counter");
-const addBtn = document.getElementById("addBtn");
-const modeBtn = document.getElementById("modeBtn");
 
-function save() { localStorage.setItem("bossTasksPro", JSON.stringify(tasks)); }
+function save() { 
+    localStorage.setItem("bossTasksPro", JSON.stringify(tasks)); 
+}
 
 function render() {
     taskList.innerHTML = "";
@@ -16,37 +16,63 @@ function render() {
         if(currentFilter === "pending") return !t.done;
         return true;
     });
-    filtered.forEach((task, index) => {
+
+    filtered.forEach((task, i) => {
         let li = document.createElement("li");
         if(task.done) li.classList.add("done");
-        li.innerHTML = `<span onclick="toggleDone(${index})" style="cursor:pointer; flex:1">${task.text}</span>
+        li.innerHTML = `<span onclick="toggleDone(${i})" style="flex:1; cursor:pointer">${task.text}</span>
         <div class="task-actions">
-        <button class="edit-btn" onclick="editTask(${index})">✏️</button>
-        <button class="delete-btn" onclick="deleteTask(${index})">X</button>
+          <button class="edit-btn" onclick="editTask(${i})">✏️</button>
+          <button class="delete-btn" onclick="deleteTask(${i})">X</button>
         </div>`;
         taskList.appendChild(li);
     });
+
     let pending = tasks.filter(t => !t.done).length;
-    counter.textContent = `${pending} Kaam Baqi Hain Boss, ${tasks.length - pending} Done ✅`;
+    counter.textContent = `${pending} کام باقی ہیں باس، ${tasks.length - pending} مکمل ✅`;
 }
 
-addBtn.onclick = () => {
-    if(taskInput.value.trim() === "") return;
-    tasks.push({ text: taskInput.value, done: false });
-    taskInput.value = ""; save(); render();
+function addTask() {
+    let value = taskInput.value.trim();
+    if(value === "") return;
+    tasks.push({ text: value, done: false });
+    taskInput.value = "";
+    save();
+    render();
 }
-window.toggleDone = (i) => { tasks[i].done = !tasks[i].done; save(); render(); }
-window.deleteTask = (i) => { tasks.splice(i, 1); save(); render(); }
+
+document.getElementById("addBtn").addEventListener("click", addTask);
+taskInput.addEventListener("keypress", function(e){
+    if(e.key === "Enter") addTask();
+});
+
+window.toggleDone = (i) => { 
+    tasks[i].done = !tasks[i].done; 
+    save(); 
+    render(); 
+}
+window.deleteTask = (i) => { 
+    tasks.splice(i, 1); 
+    save(); 
+    render(); 
+}
 window.editTask = (i) => {
-    let newText = prompt("Edit karo Boss:", tasks[i].text);
-    if(newText) { tasks[i].text = newText; save(); render(); }
+    let newText = prompt("ایڈیٹ کرو باس:", tasks[i].text);
+    if(newText) { 
+        tasks[i].text = newText; 
+        save(); 
+        render(); 
+    }
 }
-window.filterTasks = (type) => {
+window.filterTasks = (type, event) => {
     currentFilter = type;
     document.querySelectorAll(".filter").forEach(b => b.classList.remove("active"));
     event.target.classList.add("active");
     render();
 }
-modeBtn.onclick = () => { document.body.classList.toggle("dark"); }
+
+document.getElementById("modeBtn").onclick = () => { 
+    document.body.classList.toggle("dark"); 
+}
 
 render();
