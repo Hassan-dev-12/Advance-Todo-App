@@ -6,7 +6,27 @@ body { font-family: sans-serif; background: #f4f4f4; transition: 0.3s; }
 #addBtn { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; }
 .filter-box { display: flex; gap: 10px; justify-content: center; margin: 15px 0; }
 .filter { padding: 5px 15px; border-radius: 20px; border: 1px solid #ccc; cursor: pointer; background: white; }
-.filter.active { background: black; color: white; }
+.filter.active { background: black; color: white; }<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boss Todo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Boss Todo App 🔥</h1>
+        <div class="input-box">
+            <input type="text" id="taskInput" placeholder="نیا ٹاسک لکھو باس...">
+            <button id="addBtn">Add</button>
+        </div>
+        <ul id="taskList"></ul>
+        <button id="modeBtn">Dark / Light</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
 #taskList { list-style: none; padding: 0; }
 #taskList li { background: #eee; padding: 10px; margin: 8px 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 #taskList li.done { text-decoration: line-through; opacity: 0.5; background: #d4edda; }
